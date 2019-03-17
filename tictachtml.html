@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tic Tac Toe</title>
+	<link rel="stylesheet" href="tictaccss.css">
+	
+	<script>
+		const win=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+		var a=["#","#","#","#","#","#","#","#","#"];
+		var turn;
+		var count=0;
+		var winner;
+
+		function setMessage(msg)
+        {
+            document.getElementById("msg").innerText=msg;
+		}
+		
+		function startGame()
+        {   
+            turn="X";
+			winner=null;
+			a=["#","#","#","#","#","#","#","#","#"];
+            setMessage(turn+"'s first turn!!");
+		}
+
+		function nextMove(square,th)
+        {
+            if(winner!=null)
+            {
+			    setMessage(winner+" has alredy won!!!!!");
+            }
+            else if(a[square]=="#")
+			{
+				a[square]=turn;
+				console.log(a);
+
+				th.innerText=turn;
+				//document.getElementById("square").innerText=turn;
+				setMessage(a);
+				switchTurn();
+            }
+            else
+            {
+                setMessage("Alredy used square!		Choose another square for: "+turn);
+            }
+        }
+
+		function checkWinner(turn)
+		{
+			var i;
+			for (i=0;i<8;i++)
+			{
+	
+					if(a[win[i][0]]==turn && a[win[i][1]]==turn && a[win[i][2]]==turn)
+					{
+						return true;
+					}
+			}
+			return false;
+		}
+		
+		function switchTurn()
+        {   
+            if(checkWinner(turn))
+            {
+                setMessage("CONGRATULATIONS!  Mr."+turn+" has won.");
+                winner=turn;
+			}
+            else if(turn == "X")
+            {
+				if(checkDraw())
+				{
+					setMessage("GAME DRAW!- TRY AGAIN!")
+				}
+				else
+				{
+                turn = "O";
+				setMessage("It is  "+turn+"'s turn.");    
+				}
+            }
+            else if(turn =="O")
+            {
+				if(checkDraw())
+				{
+					setMessage("GAME DRAW!- TRY AGAIN!")
+				}
+				else{
+                turn = "X";
+				setMessage("It is "+turn+"'s turn");
+				}
+            }
+		}
+
+		function checkDraw()
+		{
+			var i;
+			for(i=0;i<9;i++)
+			{
+				if(a[i]=="#")
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+		
+	</script>
+
+</head>
+
+<body bgcolor="#222222" onload="startGame()">
+
+	<h1>TIC TAC TOE</h1>
+	<table class="board">
+		<tr>
+			<td class="cell" id="0" onclick="nextMove(0,this);"></td>
+			<td class="cell" id="1" onclick="nextMove(1,this);"></td>
+			<td class="cell" id="2" onclick="nextMove(2,this);"></td>
+		</tr>
+		<tr>
+			<td class="cell" id="3" onclick="nextMove(3,this);"></td>
+			<td class="cell" id="4" onclick="nextMove(4,this);"></td>
+			<td class="cell" id="5" onclick="nextMove(5,this);"></td>
+		</tr>
+		<tr>
+			<td class="cell" id="6" onclick="nextMove(6,this);"></td>
+			<td class="cell" id="7" onclick="nextMove(7,this);"></td>
+			<td class="cell" id="8" onclick="nextMove(8,this);"></td>
+		</tr>
+	</table>
+
+	<div id="msg">Hii</div><br/><br/>
+	<form>
+		<input type="button" value="reset" style="width: 100px; height: 30px;" onclick="window.location.reload()">
+		
+	</form>
+
+  <script src="script.js"></script>
+</body>
+</html>
